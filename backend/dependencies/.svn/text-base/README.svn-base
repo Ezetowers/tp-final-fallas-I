@@ -1,0 +1,5 @@
+Intellect
+* Rule engine used in the project. For the installation, the dependency setuptools must be installed first
+
+webPy
+* Framework to easily create a web service. Used to create the channel communication between backend and frontend

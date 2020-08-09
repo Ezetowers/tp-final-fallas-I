@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/20/backend/ArrowSelection/rulesets
+END
+secondRuleSet.policy
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/22/backend/ArrowSelection/rulesets/secondRuleSet.policy
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/1/backend/ArrowSelection/rulesets/__init__.py
+END
+firstRuleSet.policy
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/14/backend/ArrowSelection/rulesets/firstRuleSet.policy
+END

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Arrow selection</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/ArrowSelection-theme.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <script type="application/javascript">
+
+	function isBlank(str) {
+		return (!str || /^\s*$/.test(str));
+	}
+
+	function sendQuery(query) {
+		var xmlhttp;
+		var data_file = query;
+		xmlhttp=new XMLHttpRequest();
+
+		//question , model
+
+		xmlhttp.onreadystatechange = function() {
+			console.log("Llego la respuesta");
+
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				// Javascript function JSON.parse to parse JSON data
+				var jsonObj = JSON.parse(xmlhttp.responseText);
+				
+				console.log("Model: "+jsonObj.model);
+				console.log("Next question: "+jsonObj.question.toString());
+
+				if (jsonObj.model == "Not known yet") {
+					setActive(jsonObj.question);
+				}
+                else if (jsonObj.model == "Could not be determined") {
+                    showUnmatchedResult (jsonObj.model);
+                }
+				else {
+					showResult (jsonObj.model);
+				}
+			}
+		};
+
+		xmlhttp.open("GET", data_file, true);
+		xmlhttp.send();
+	}
+
+	function getBaseUrl() {
+		return "http://localhost:45322/";
+	}
+	
+	function getSelectedValue(elementName) {
+
+		var radios = document.getElementsByName(elementName);
+		var radio_value;
+		for(var i = 0; i < radios.length; i++){
+    			if(radios[i].checked){
+        			radio_value = radios[i].value;
+    			}
+		}
+		return radio_value;
+	} 
+
+	function setActive(active) {
+		for (var i = 1; i < 6; i++) {
+			if (i == active) {
+				var element = document.getElementById(i.toString());
+				element.className = "pregActive";
+				element = document.getElementById("f"+i.toString());
+				element.style.display = "inline";
+			}
+			else {
+				var element = document.getElementById(i.toString());
+				element.className = "pregInactive";
+
+				element = document.getElementById("f"+i.toString());
+				element.style.display = "none";
+			}
+		}
+	}
+
+    var query= getBaseUrl(); 
+
+	// Pregunta 1
+	function sendLongitud() {
+		var selectedLongitud = getSelectedValue("longitud");
+
+		query += "?longitud=" + selectedLongitud.toString();
+		// document.getElementById("query").innerHTML = query;
+
+		sendQuery(query);
+	}
+
+    // Pregunta 2
+	function sendAltura() {
+		var selectedAltura = getSelectedValue("altura");
+
+		query += "&altura=" + selectedAltura.toString();
+		// document.getElementById("query").innerHTML = query;
+
+		sendQuery(query);
+	}
+
+	// Pregunta 3
+	function sendLibraje() {
+		var selectedLibraje = getSelectedValue("libraje");
+
+		query += "&libraje=" + selectedLibraje.toString();
+		// document.getElementById("query").innerHTML = query;
+
+		sendQuery(query);
+	}
+
+	// Pregunta 4
+	function sendTemperatura() {
+		var selectedTemperatura = getSelectedValue("temperatura");
+
+		query += "&temperatura=" + selectedTemperatura.toString();
+		// document.getElementById("query").innerHTML = query;
+
+		sendQuery(query);
+	}
+
+	// Pregunta 5
+	function sendDistancia() {
+		var selectedDistancia = getSelectedValue("distancia");
+
+		query += "&distancia=" + selectedDistancia.toString();
+		// document.getElementById("query").innerHTML = query;
+
+		sendQuery(query);
+    }
+
+	function showResult (arrowModel) {
+
+		document.getElementById("f1").style.display = "none";
+		document.getElementById("f2").style.display = "none";
+		document.getElementById("f3").style.display = "none";
+		document.getElementById("f4").style.display = "none";
+		document.getElementById("f5").style.display = "none";
+
+		document.getElementById("1").className = "pregInactive";
+		document.getElementById("2").className = "pregInactive";
+		document.getElementById("3").className = "pregInactive";
+		document.getElementById("4").className = "pregInactive";
+		document.getElementById("5").className = "pregInactive";
+
+		document.getElementById("resultText").innerHTML = arrowModel;
+		document.getElementById("resultImage").src = arrowModel+".jpg";
+		document.getElementById("result").style.display = "inline";
+	}
+
+
+    function showUnmatchedResult(arrowModel) {
+		document.getElementById("f1").style.display = "none";
+		document.getElementById("f2").style.display = "none";
+		document.getElementById("f3").style.display = "none";
+		document.getElementById("f4").style.display = "none";
+		document.getElementById("f5").style.display = "none";
+
+		document.getElementById("1").className = "pregInactive";
+		document.getElementById("2").className = "pregInactive";
+		document.getElementById("3").className = "pregInactive";
+		document.getElementById("4").className = "pregInactive";
+		document.getElementById("5").className = "pregInactive";
+
+		document.getElementById("resultText").innerHTML = "No se pudo obtener un modelo de flecha debido a la falta del parametro <b> Libraje </b>. <br> Inspeccione las <b>palas</b> de su arco para obtener el valor del mismo";
+
+		document.getElementById("resultImage").src = "Fail.jpg";
+		document.getElementById("result").style.display = "inline";
+    }
+
+	function resetForms () {
+		document.getElementById("query").innerHTML = getBaseUrl();
+		document.getElementById("result").style.display = "none";
+
+		setActive(1);
+        query = getBaseUrl()
+	}
+
+   </script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="#">Preguntas</a></li>
+                <li><div class="pregActive" id="1" href="#">Longitud</a></li>
+                <li><div class="pregInactive" id="2" href="#">Altura</a></li>
+                <li><div class="pregInactive" id="3" href="#">Libraje</a></li>
+                <li><div class="pregInactive" id="4" href="#">Temperatura</a></li>
+                <li><div class="pregInactive" id="5" href="#">Distancia de Tiro</a></li>
+            </ul>
+        </div>
+
+        <!-- Page content -->
+        <div id="page-content-wrapper">
+            <div class="content-header">
+                <h1>
+                    <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
+                    TP Fallas - Arrow Model Selection
+                </h1>
+            </div>
+            <!-- Keep all page content within the page-content inset div! -->
+            <div class="page-content inset">
+
+		<!-- Pregunta 1: Longitud de brazo -->
+		<div id="f1" style="display:inline;">
+			<p class="well">Pregunta 1: ¿Cual es su longitud de draw (longitud del brazo)?</p>
+
+			<p><input type="radio" name="longitud" value=1> Menor a 27" </p>		
+			<p><input type="radio" name="longitud" value=2> Entre 27" y 30" </p>
+			<p><input type="radio" name="longitud" value=3> Mayor a 30" </p>
+			<p><input type="radio" name="longitud" value=0 checked="true"> Desconocido </p>
+
+		 	<input type="button" value="Enviar" onclick="sendLongitud()">						
+		</div>
+
+		<!-- Pregunta 2: Altura del tirador -->
+		<div id="f2" style="display:none;">
+			<p class="well">Pregunta 2: ¿Cual es su altura (Valores desplegados en metros)?</p>
+
+			<p><input type="radio" name="altura" value=0 checked="true"> Menor a 1.60m </p>		
+			<p><input type="radio" name="altura" value=1> Entre 1.60m y 1.90m </p>
+			<p><input type="radio" name="altura" value=2> Mayor a 1.90m  </p>
+
+		 	<input type="button" value="Enviar" onclick="sendAltura()">						
+		</div>
+
+		<!-- Pregunta 3: Libraje del arco -->
+		<div id="f3" style="display:none;">
+			<p class="well">Pregunta 3: ¿Cual es el libraje del arco?</p>
+
+			<p><input type="radio" name="libraje" value=1>Entre 21" a 27" </p>		
+			<p><input type="radio" name="libraje" value=2> Entre 28" y 34" </p>
+			<p><input type="radio" name="libraje" value=3> Mayor a 35" </p>
+			<p><input type="radio" name="libraje" value=0 checked="true"> Desconocido </p>
+
+		 	<input type="button" value="Enviar" onclick="sendLibraje()">
+		</div>
+
+		<!-- Pregunta 4: Temperatura ambiente -->
+		<div id="f4" style="display:none;">
+			<p class="well">Pregunta 4: ¿Cual es la temperatura ambiente?</p>
+			<p><input type="radio" name="temperatura" value=1>Menor a 25°</p>		
+			<p><input type="radio" name="temperatura" value=2>Mayor a 25°</p>
+			<p><input type="radio" name="temperatura" value=0 checked="true"> Desconocido </p>
+			<p></p>
+		 	<input type="button" value="Enviar" onclick="sendTemperatura()">
+		</div>
+
+		<!-- Pregunta 5: Distancia a Diana -->
+		<div id="f5" style="display:none;">
+			<p class="well">Pregunta 5: ¿Cual es la distancia desde la cual esta tirando?</p>
+			<p><input type="radio" name="distancia" value=0 checked="true">18 metros</p>		
+			<p><input type="radio" name="distancia" value=1>25 metros</p>
+			<p></p>
+		 	<input type="button" value="Enviar" onclick="sendDistancia()">
+		</div>
+
+
+		<div id="result"  style="display:none;">
+			<p class="well"> Resultado: </p> 
+			<div id="resultText"></div>	
+			<div><img id="resultImage"></div>
+			<p></p>
+		 	<input type="button" value="Reiniciar" onclick="resetForms()">
+		</div>
+
+        <!--
+		<p><div id="query"></div></p>
+            </div>
+        </div>
+        -->
+
+    </div>
+
+    <!-- JavaScript -->
+    <script src="jquery/JQuery2.1.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+    <!-- Custom JavaScript for the Menu Toggle -->
+    <script>
+	$("#menu-toggle").click(function(e) {
+		e.preventDefault();
+		$("#wrapper").toggleClass("active");
+	});
+    </script>
+</body>
+
+</html>
+

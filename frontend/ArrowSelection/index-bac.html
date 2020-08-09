@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TP Final Fallas - Arrow Selection</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/ArrowSelection-theme.css" rel="stylesheet">
+
+  </head>	
+
+  <body>
+
+	  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">TP Final Fallas - Arrow Selection</a>
+	    </div>
+	    <div class="collapse navbar-collapse">
+	      <ul class="nav navbar-nav">
+	        <li class="active"><a href="#">Home</a></li>
+	        <li><a href="#about">About</a></li>
+	        <li><a href="#contact">Contact</a></li>
+	      </ul>
+	    </div><!--/.nav-collapse -->
+	  </div>
+	</div>
+
+  <div class="container">
+
+    <div class="starter-theme">
+  		<h1>Arrow Selection</h1>
+  		<p class="lead">Respond the questions above to get the arrow that best fits your needs.
+  		<br> The chosen arrow will be display on the screen when the app selected it.</p>
+	</div>
+
+
+	<div class"container">
+    <div>
+    	<div class="page-header">
+      	<h3> List groups </h3>
+    	</div>
+
+    	<div class="col-sm-2">
+    		<span class="list-group-item active"> Pregunta 1 </span>
+    		<span class="list-group-item"> Pregunta 2 </span>
+    		<span class="list-group-item"> Pregunta 3 </span>
+    		<span class="list-group-item"> Pregunta 4 </span>
+    		<span class="list-group-item"> Pregunta 5 </span>
+    		<span class="list-group-item"> Pregunta 6 </span>
+      </div>
+     </div>
+
+    <div class="col-sm-4">
+			<div class id="myDiv"> <p> <h3 class="center"> Login Window </h3></p> </div>
+			
+			<form name="theForm" action="responseFromWS()" method="post">
+				<table class="center">
+					<tr>
+						<td> First Name </td>
+						<td colspan="6"> <input type="text" name="FirstName" value="" size=50> </td>
+					</tr> 
+					<tr>
+						<td> Last Name </td>
+						<td colspan="6"> <input type="text" name="LastName" value="" size=50> </td>
+					</tr>
+					<tr>
+						<td> Gender </td>
+						<td> <input type="radio" name="Gender" value=0> </td>
+						<td> Male </td>
+						<td> <input type="radio" name="Gender" value=0> </td>
+						<td> Female </td>
+						<td> <input type="radio" name="Gender" value=1> </td>
+						<td> Other </td>
+					</tr>
+					<tr>
+						<td> E-mail </td>
+						<td colspan="6"> <input type="text" name="Email" value="" size=50> </td>
+					</tr>
+					<tr>
+						<td align="center" colspan="7"> 
+							 <input type="button" value="Submit" onclick="responseFromWS()">
+						</td>				
+					</tr>
+				</table>
+			</form>
+    </div>
+
+	</div><!-- /.container -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="jquery/JQuery2.1.2.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
+
+
+<!---
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title> TP Final Fallas - Arrow Selection </title>
+		
+		<script type="application/javascript">
+			function responseFromWS() {
+				var xmlhttp;
+				var data_file = "http://127.0.0.1:45321/?";
+				xmlhttp=new XMLHttpRequest();
+				
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        				// Javascript function JSON.parse to parse JSON data
+        				/*var jsonObj = JSON.parse(xmlhttp.responseText);
+
+	        			document.theForm.FirstName.value =  jsonObj.FirstName;
+    					document.theForm.LastName.value = jsonObj.LastName;
+    					document.theForm.Gender.value = jsonObj.Gender;
+    					document.theForm.Email.value = jsonObj.Email;*/
+    					
+					} 
+				};
+  				
+				xmlhttp.open("GET", data_file, true);
+				xmlhttp.send();
+			}
+
+		</script>
+		
+	</head>
+
+	<body>
+		<div class="outer">
+
+			<div class="header">
+				<h1 class="center"> Arrow Selection </h1>
+			</div>
+
+			<div class="nav">
+				<h3 class="center"> Nav </h3>
+				<ul>
+					<li> <a href="webpage2.html"> Playing with Lists </a> </li>
+					<li> <a href="webpage3.html"> Playing with Tables </a> </li>
+					<li> <a href="webpage4.html"> Div tag and Introduction to CSS </a> </li>
+					<li> <a href="webpage5.html"> Playing with Images </a> </li>
+				</ul>
+			</div>
+
+			<div class="article">
+				<div id="myDiv"> <p> <h3 class="center"> Login Window </h3></p> </div>
+				
+				<form name="theForm" action="responseFromWS()" method="post">
+					<table class="center">
+						<tr>
+							<td> First Name </td>
+							<td colspan="6"> <input type="text" name="FirstName" value="" size=50> </td>
+						</tr> 
+						<tr>
+							<td> Last Name </td>
+							<td colspan="6"> <input type="text" name="LastName" value="" size=50> </td>
+						</tr>
+						<tr>
+							<td> Gender </td>
+							<td> <input type="radio" name="Gender" value=0> </td>
+							<td> Male </td>
+							<td> <input type="radio" name="Gender" value=0> </td>
+							<td> Female </td>
+							<td> <input type="radio" name="Gender" value=1> </td>
+							<td> Other </td>
+						</tr>
+						<tr>
+							<td> E-mail </td>
+							<td colspan="6"> <input type="text" name="Email" value="" size=50> </td>
+						</tr>
+						<tr>
+							<td align="center" colspan="7"> 
+								 <input type="button" value="Submit" onclick="responseFromWS()">
+							</td>				
+						</tr>
+					</table>
+				</form>
+			</div>
+			
+			<div class="footer">
+				<h3 class="center"> Powered by ??? S.A. </h3>
+			</div>	
+			
+		</div>
+
+	</body>
+</html>
+
+-->

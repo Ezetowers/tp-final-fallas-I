@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/20/backend/ArrowSelection
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/1/backend/ArrowSelection/__init__.py
+END
+Arm_Length.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/14/backend/ArrowSelection/Arm_Length.py
+END
+Model.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/22/backend/ArrowSelection/Model.py
+END
+Poundage.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/14/backend/ArrowSelection/Poundage.py
+END
+Application.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/22/backend/ArrowSelection/Application.py
+END
+main.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/9/backend/ArrowSelection/main.py
+END
+Question.py
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/22/backend/ArrowSelection/Question.py
+END
+MyIntellect.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/14/backend/ArrowSelection/MyIntellect.py
+END
+Arrow_Model.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/22/backend/ArrowSelection/Arrow_Model.py
+END
+Temperature.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/ezetorres-fallas_arrow_selection/!svn/ver/14/backend/ArrowSelection/Temperature.py
+END

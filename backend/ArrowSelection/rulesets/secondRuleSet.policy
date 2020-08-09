@@ -1,0 +1,161 @@
+import logging
+from Model import Model
+from MyIntellect import MyIntellect
+
+
+rule "Arm Length unknown":
+    when:
+        $model := Model( arm_length == 0 and height == -1 )
+    then:
+        log ("Arm Length unknown. Asking for Height.", "ArrowSelection", logging.DEBUG)
+        modify $model:
+            question = 2
+        halt
+
+
+rule "Convert Height to Arm_Length":
+    when: 
+        $model := Model( arm_length == 0 and height != -1 )
+    then:
+        log("Converting Height to Arm_Length", "ArrowSelection", logging.DEBUG)
+        modify $model:
+            arm_length = $model.height + 1
+
+
+rule "Arm_Length >= 31 and Distance not exists":
+    when:
+        $model := Model( arm_length == 3 and target_distance == -1 )
+    then:
+        log ("Arm Length >= 31 but Distance not defined. Asking Distance", "ArrowSelection", logging.DEBUG)
+        modify $model: 
+            question = 5
+        halt
+
+
+rule "Arm_Length >= 31 and Target_Distance == 18":
+    when:
+        $model := Model( arm_length == 3 and target_distance == 0 )
+    then:
+        log ("Arm Length >= 31 and Target_Distance == 18 metres. Model 75 selected", "ArrowSelection", logging.DEBUG)
+        modify $model: 
+            arrow_model = 2
+        halt
+
+
+rule "Arm_Length >= 31 and Distance == 25":
+    when:
+        $model := Model( arm_length == 3 and target_distance == 1 )
+    then:
+        log ("Arm Length >= 31 and Distance == 25 metres. Model X7 selected", "ArrowSelection", logging.DEBUG)
+        modify $model: 
+            arrow_model = 4
+        halt
+
+
+rule "Poundage not exists":
+    when:
+        $model := Model( poundage == -1 )
+    then:
+        log("Poundage does not exists. Asking Poundage.", "ArrowSelection", logging.DEBUG)
+        modify $model:
+            question = 3
+        halt
+
+
+rule "Poundage unknown":
+    when:
+        $model := Model( poundage == 0 )
+    then:
+        log("Poundage can't be unknown. Stop reasoning.", "ArrowSelection", logging.DEBUG)
+        modify $model:
+            arrow_model = 0
+        halt
+
+
+rule "Arm Length <26 and Poundage 21-27":
+    when:
+        $model := Model( arm_length == 1 and poundage == 1 )
+    then:
+        log("Arm_Length <26 and Poundage 21-27. Model 75 selected.", "ArrowSelection", logging.DEBUG)
+        modify $model:
+            arrow_model = 2
+        halt
+
+
+rule "Arm Length 27-30 and Poundage >=35":
+    when:
+        $model := Model( arm_length == 2 and poundage == 3 )
+    then:
+        log("Arm_Length 27-30 and Poundage >=35. Model X7 selected.", "ArrowSelection", logging.DEBUG)
+        modify $model:
+            arrow_model = 4
+        halt
+
+
+rule "Temperature not exists":
+    when:
+        $model := Model( temperature == -1 )
+    then:
+        log("Temperature does not exists. Asking Temperature.", "ArrowSelection", logging.DEBUG)
+        modify $model:
+            question = 4
+        halt
+
+
+rule "Temperature unknown":
+    when:
+        $model := Model( temperature == 0 ) 
+    then:
+        log("Temperature not known. Setting Temperature to <=25, which is the most probable value", "ArrowSelection", logging.DEBUG)
+        modify $model:
+            temperature = 1        
+
+
+rule "Temperature >=25":
+    when:
+        $model := Model( temperature == 2 )
+    then:
+        log("Arm_Length < 31 and Temperature >25. Model Apollo selected", "ArrowSelection", logging.DEBUG)
+        modify $model:
+            arrow_model = 3
+        halt
+
+
+rule "Arm_Length <=26 and Poundage 28-34 and Temperature <=25":
+    when:
+        $model := Model( arm_length == 1 and poundage == 2 and temperature == 1)
+    then:
+        log("Arm Length <=26 and Poundage 28-34 and Temperature <=25. Model 75 selected", "ArrowSelection", logging.DEBUG)
+        modify $model:
+            arrow_model = 2
+        halt
+
+
+rule "Target_Distance not known":
+    when:
+        $model := Model( target_distance == -1 )
+    then:
+        log("Target Distance not known. Asking Target Distance", "ArrowSelection", logging.DEBUG)
+        modify $model:
+            question = 5
+        halt
+
+
+rule "Target_Distance == 18":
+    when:
+        $model := Model( target_distance == 0 )
+    then:
+        log("Target Distance == 18. Model 75 selected.", "ArrowSelection", logging.DEBUG)
+        modify $model:
+            arrow_model = 2
+        halt
+
+
+rule "Target_Distance == 25":
+    when:
+        $model := Model( target_distance == 1)
+    then:
+        log("Target Distance == 25. Model X7 selected.", "ArrowSelection", logging.DEBUG)
+        modify $model:
+            arrow_model = 4
+        halt

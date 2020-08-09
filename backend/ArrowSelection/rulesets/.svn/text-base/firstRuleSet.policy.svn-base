@@ -1,0 +1,223 @@
+import logging
+from Arm_Length import Arm_Length
+from Poundage import Poundage
+from Temperature import Temperature
+from MyIntellect import MyIntellect
+
+
+rule "Arm_Length >= 31":
+	agenda-group "Flux1"
+	when:
+		$arm_length := Arm_Length( value == 3 )
+	then:
+		log ("Arm Length >= 31, model X7 selected", "ArrowSelection", logging.DEBUG)
+		arrow_model_selected( 3 )
+		halt
+
+
+rule "Poundage exist":
+	agenda-group "Flux1"
+	when:
+		exists Poundage( created == False )
+	then:
+		log ("Arm Length <= 31 and Poundage not set. Setting question selected to 2", "ArrowSelection", logging.DEBUG)
+		question_selected( 2 )
+		halt
+
+
+rule "Arm_Length is <26":
+	agenda-group "Flux1"
+	when:
+		exists Arm_Length( value != 1 )
+	then:
+		log("Arm Length isn't < 26. Changing flux", "ArrowSelection", logging.DEBUG)
+		halt
+
+
+# Arm_Length is < 26. Ask for the Poundage
+rule "Poundage 21-27":
+	agenda-group "Flux1"
+	when: 
+		exists Poundage( value  == 1 )
+	then:
+		log("Arm Length <26 and Poundange 21-37, model 75 selected", "ArrowSelection", logging.DEBUG)
+		arrow_model_selected( 1 )
+		halt
+
+
+rule "Temperature not exists":
+	agenda-group "Flux1"
+	when:
+		exists Temperature( created == False )
+	then:
+		log("Temperature not set. Setting question selected to 3", "ArrowSelection", logging.DEBUG)
+		question_selected( 3 )
+		halt
+
+
+rule "Poundage is >35":
+	agenda-group "Flux1"
+	when:
+		exists Poundage( value != 2 )
+	then:
+		log("Poundage isn't >35. Changing flux", "ArrowSelection", logging.DEBUG)
+		halt
+
+# Poundage is 28-34. Decide with Temperature
+rule "Temperature < 25":
+	agenda-group "Flux1"
+	when:
+		exists Temperature( value == 1 )
+	then:
+		log("Arm Length < 26 - Poundage 28-34 - Temperature < 25. Model 75 selected", "ArrowSelection", logging.DEBUG)
+		arrow_model_selected( 1 )
+		halt
+
+
+rule "Temperature > 25":
+	agenda-group "Flux1"
+	when:
+		exists Temperature( value == 2 )
+	then:
+		log("Arm Length < 26 - Poundage 28-34 - Temperature > 25. Model X7 selected", "ArrowSelection", logging.DEBUG)
+		arrow_model_selected( 3 )
+		halt
+
+
+###################################### FLUX 2 #########################################
+# Arm_Length < 26 - Poundage > 35
+
+rule "Arm_Length < 26":
+	agenda-group "Flux2"
+	when:
+		exists Arm_Length( value != 1 )
+	then:
+		halt
+
+
+rule "Poundage > 35":
+	agenda-group "Flux2"
+	when:
+		exists Poundage( value != 3 )
+	then:
+		halt
+
+
+rule "Temperature < 25":
+	agenda-group "Flux2"
+	when:
+		exists Temperature( value == 1 )
+	then:
+		log("Arm Length < 26 - Poundage > 35 - Temperature < 25. Model X7 selected", "ArrowSelection", logging.DEBUG)
+		arrow_model_selected( 3 )
+		halt
+
+
+rule "Temperature > 25":
+	agenda-group "Flux2"
+	when:
+		exists Temperature( value == 2 )
+	then:
+		log("Arm Length < 26 - Poundage > 35 - Temperature > 25. Model Apollo selected", "ArrowSelection", logging.DEBUG)
+		arrow_model_selected( 2 )
+		halt
+
+
+###################################### FLUX 3 #########################################
+# Arm_Length is 27-30
+
+rule "Arm_Length > 27-30":
+	agenda-group "Flux3"
+	when:
+		exists Arm_Length( value != 2 )
+	then: 
+		halt
+
+
+rule "Poundage 28-34":
+	agenda-group "Flux3"
+	when: 
+		exists Poundage( value  == 2 )
+	then:
+		log("Arm Length 27-30 and Poundange 28-34. Model Apollo selected", "ArrowSelection", logging.DEBUG)
+		arrow_model_selected( 2 )
+		halt
+
+
+rule "Temperature not exists":
+	agenda-group "Flux3"
+	when:
+		exists Temperature( created == False )
+	then:
+		log("Temperature not set. Setting question selected to 3", "ArrowSelection", logging.DEBUG)
+		question_selected( 3 )
+		halt
+
+
+rule "Poundage is 21-27":
+	agenda-group "Flux3"
+	when:
+		exists Poundage( value != 1 )
+	then:
+		log("Poundage isn't > 35. Changing flux", "ArrowSelection", logging.DEBUG)
+		halt
+
+# Poundage is 21-27. Decide with Temperature
+rule "Temperature < 25":
+	agenda-group "Flux3"
+	when:
+		exists Temperature( value == 1 )
+	then:
+		log("Arm Length 27-30 - Poundage 21-27 - Temperature < 25. Model 75 selected", "ArrowSelection", logging.DEBUG)
+		arrow_model_selected( 1 )
+		halt
+
+
+rule "Temperature > 25":
+	agenda-group "Flux3"
+	when:
+		exists Temperature( value == 2 )
+	then:
+		log("Arm Length 27-30 - Poundage 21-27 - Temperature > 25. Model Apollo selected", "ArrowSelection", logging.DEBUG)
+		arrow_model_selected( 2 )
+		halt
+
+
+###################################### FLUX 4 #########################################
+# Arm_Length 27-30 - Poundage > 35
+
+rule "Arm_Length 27-30":
+	agenda-group "Flux4"
+	when:
+		exists Arm_Length( value != 2 )
+	then: 
+		halt
+
+
+rule "Poundage > 35":
+	agenda-group "Flux4"
+	when:
+		exists Poundage( value != 3 )
+	then:
+		halt
+
+
+rule "Temperature < 25":
+	agenda-group "Flux4"
+	when:
+		exists Temperature( value == 1 )
+	then:
+		log("Arm Length 27-30 - Poundage > 35 - Temperature < 25. Model Apollo selected", "ArrowSelection", logging.DEBUG)
+		arrow_model_selected( 2 )
+		halt
+
+
+rule "Temperature > 25":
+	agenda-group "Flux4"
+	when:
+		exists Temperature( value == 2 )
+	then:
+		log("Arm Length 27-30 - Poundage > 35 - Temperature > 25. Model X7 selected", "ArrowSelection", logging.DEBUG)
+		arrow_model_selected( 3 )
+		halt
+

@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Starter Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/ArrowSelection-theme.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+<<<<<<< .mine
+=======
+    
+    <script type="application/javascript">
+>>>>>>> .r6
+
+	function getBaseUrl() {
+		return "http://localhost:54321/";
+	}
+	
+	function getSelectedValue(elementName) {
+
+		var radios = document.getElementsByName(elementName);
+		var radio_value;
+		for(var i = 0; i < radios.length; i++){
+    			if(radios[i].checked){
+        			radio_value = radios[i].value;
+    			}
+		}
+		return radio_value;
+	} 
+
+	function changeActive(current, next) {
+		var element = document.getElementById(current.toString());
+		element.className = "pregInactive";
+
+		element = document.getElementById("f"+current.toString());
+		element.style.display = "none";
+
+		var element = document.getElementById(next.toString());
+		element.className = "pregActive";
+
+		element = document.getElementById("f"+next.toString());
+		element.style.display = "inline";		
+	}
+
+	function sendLongitud() {
+		var selectedLongitud = getSelectedValue("longitud");
+		
+		var query = getBaseUrl() + "?longitud="+selectedLongitud.toString();
+		document.getElementById("query").innerHTML = query;
+
+		changeActive(1,2);
+	}
+
+	function sendLibraje() {
+		var selectedLibraje = getSelectedValue("libraje");
+		var selectedLongitud = getSelectedValue("longitud");
+		
+		var query = getBaseUrl() + "?longitud="+selectedLongitud.toString()+"&libraje="+selectedLibraje.toString();
+		document.getElementById("query").innerHTML = query;
+ 
+		changeActive(2,3);
+	}
+
+	function sendTemperatura() {
+		var selectedTemperatura = getSelectedValue("temperatura");
+		var selectedLibraje = getSelectedValue("libraje");
+		var selectedLongitud = getSelectedValue("longitud");
+		
+		var query = getBaseUrl() + "?longitud="+selectedLongitud.toString()+"&temperature="+selectedTemperatura.toString();
+		document.getElementById("query").innerHTML = query;
+		
+		showResult("x7");
+	}
+
+	function showResult (arrowModel) {
+
+		document.getElementById("f1").style.display = "none";
+		document.getElementById("f2").style.display = "none";
+		document.getElementById("f3").style.display = "none";
+		
+		document.getElementById("1").className = "pregInactive";
+		document.getElementById("2").className = "pregInactive";
+		document.getElementById("3").className = "pregInactive";
+
+		document.getElementById("resultText").innerHTML = arrowModel;
+		document.getElementById("resultImage").src = arrowModel+".jpg";
+		document.getElementById("result").style.display = "inline";
+	}
+
+	function resetForms () {
+		
+		document.getElementById("query").innerHTML = getBaseUrl();
+		
+		document.getElementById("f1").style.display = "inline";
+		document.getElementById("1").className = "pregInactive";
+		document.getElementById("result").style.display = "none";
+	}
+
+   </script>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="#">Preguntas</a>
+                </li>
+<<<<<<< .mine
+                <li><span class="caca">Dashboard</span>
+=======
+                <li><div class="pregActive" id="1" href="#">Longitud</a>
+>>>>>>> .r6
+                </li>
+                <li><div class="pregInactive" id="2" href="#">Libraje</a>
+                </li>
+                <li><div class="pregInactive" id="3" href="#">Temperatura</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Page content -->
+        <div id="page-content-wrapper">
+            <div class="content-header">
+                <h1>
+                    <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
+                    TP Fallas - Arrow Model Selection
+                </h1>
+            </div>
+            <!-- Keep all page content within the page-content inset div! -->
+            <div class="page-content inset">
+
+		<div id="f1" class="formActive">
+			<p class="well">Pregunta 1: ¿Cual es su longitud de draw (longitud del brazo)?</p>
+
+			<p><input type="radio" checked="true" name="longitud" value=1> Menor a 27" </p>		
+			<p><input type="radio" name="longitud" value=2> Entre 27" y 30" </p>
+			<p><input type="radio" name="longitud" value=3> Mayor a 30" </p>
+
+			<p><input type="radio" name="longitud" value=0> Desconocido </p>
+
+		 	<input type="button" value="Enviar" onclick="sendLongitud()">						
+		</div>
+
+		<div id="f2" class="formInactive">
+			<p class="well">Pregunta 2: ¿Cual es el libraje del arco?</p>
+
+			<p><input type="radio" checked="true" name="libraje" value=0>Entre 21" a 27" </p>		
+			<p><input type="radio" name="libraje" value=1> Entre 28" y 34" </p>
+			<p><input type="radio" name="libraje" value=2> Mayor a 35" </p>
+			<p><input type="radio" name="libraje" value=0> Desconocido </p>
+
+		 	<input type="button" value="Enviar" onclick="sendLibraje()">
+		</div>
+
+		<div id="f3" class="formInactive">
+			<p class="well">Pregunta 3: ¿Cual es la temperatura ambiente?</p>
+			<p><input type="radio" checked="true" name="temperatura" value=0>Menor a 25°</p>		
+			<p><input type="radio" name="temperatura" value=1>Mayor a 25°</p>
+			<p><input type="radio" name="temperatura" value=0> Desconocido </p>
+			<p></p>
+		 	<input type="button" value="Enviar" onclick="sendTemperatura()">
+		</div>
+
+		<div id="result"  style="display:none;">
+			<p class="well"> Resultado: </p> 
+			<div id="resultText"></div>	
+			<div><img id="resultImage"></div>
+			<p></p>
+		 	<input type="button" value="Reiniciar" onclick="resetForms()">
+		</div>
+
+		<p><div id="query"></div></p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script src="jquery/JQuery2.1.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+    <!-- Custom JavaScript for the Menu Toggle -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+    });
+    </script>
+</body>
+
+</html>
+
